@@ -161,44 +161,97 @@ class Solution {
 //    }
 //}
 
+//class Solution {
+//        //upperCase and lowerCase
+//        public static void main(String[] args) {
+//            String words = "Today is a great day";
+//            String upperCase = words.toUpperCase();
+//            String lowerCase =  words.toLowerCase();
+//            System.out.println("original word: " + words);
+//            System.out.println("Upper Case word: "+ upperCase);
+//            System.out.println("Lower Case word: "+ lowerCase);
+//            // split String into Array
+//            String[] wordsArray = words.split("\\s+");
+//            System.out.println("Split strings into Array ");
+//            System.out.println("The words are: ");
+//            for (String word: wordsArray){
+//                System.out.println(word + "");
+//            }
+//            //Concatenate strings
+//            String part1 = "Hello";
+//            String part2 = "World";
+//            String concat = part1.concat(part2);
+//            System.out.println("Concatenating strings ");
+//            System.out.println(concat);
+//
+//            //Replace string
+//            String original = "I love programming in Python";
+//            String replacedString = original.replace("Python","Java");
+//            System.out.println("Replacing strings ");
+//            System.out.println("Original String: " + original);
+//            System.out.println("Replaced string: " + replacedString);
+//
+//            //Reverse string
+//            String orig = ("Hello");
+//            StringBuilder sb = new StringBuilder(orig);
+//            String reversed = sb.reverse().toString();
+//            System.out.println("Reversing a string: ");
+//            System.out.println("Original string: " + orig);
+//            System.out.println("Reversed string: " + reversed);
+//
+//        }
+//
+//    }
+
+//import java.util.*;
+//class Solution{
+//
+//    public static void greetUser(String name){
+//        System.out.println("Hello there.." + name);
+//    }
+//
+//    public static void main(String[] args){
+//
+//        String userName = "Alex";
+//        greetUser(userName);
+//    }
+//}
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 class Solution {
-        //upperCase and lowerCase
-        public static void main(String[] args) {
-            String words = "Today is a great day";
-            String upperCase = words.toUpperCase();
-            String lowerCase =  words.toLowerCase();
-            System.out.println("original word: " + words);
-            System.out.println("Upper Case word: "+ upperCase);
-            System.out.println("Lower Case word: "+ lowerCase);
-            // split String into Array
-            String[] wordsArray = words.split("\\s+");
-            System.out.println("Split strings into Array ");
-            System.out.println("The words are: ");
-            for (String word: wordsArray){
-                System.out.println(word + "");
+
+    public static void main(String[] args) {
+        String filePath = "data.csv"; // path to your CSV file
+        int totalSum = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean isHeader = true;
+
+            while ((line = br.readLine()) != null) {
+                // Skip the header row
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
+
+                // Split CSV line into fields
+                String[] fields = line.split(",");
+
+                // Parse the "amount" column (index 2 here)
+                int amount = Integer.parseInt(fields[2].trim());
+
+                // Add to running total
+                totalSum += amount;
             }
-            //Concatenate strings
-            String part1 = "Hello";
-            String part2 = "World";
-            String concat = part1.concat(part2);
-            System.out.println("Concatenating strings ");
-            System.out.println(concat);
 
-            //Replace string
-            String original = "I love programming in Python";
-            String replacedString = original.replace("Python","Java");
-            System.out.println("Replacing strings ");
-            System.out.println("Original String: " + original);
-            System.out.println("Replaced string: " + replacedString);
+            System.out.println("Total sum of amounts: " + totalSum);
 
-            //Reverse string
-            String orig = ("Hello");
-            StringBuilder sb = new StringBuilder(orig);
-            String reversed = sb.reverse().toString();
-            System.out.println("Reversing a string: ");
-            System.out.println("Original string: " + orig);
-            System.out.println("Reversed string: " + reversed);
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
+}
